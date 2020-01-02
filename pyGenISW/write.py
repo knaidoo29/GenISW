@@ -4,7 +4,7 @@ import subprocess
 
 def write_paramfile(paramfname, Tcmb, h0, omega_m, omega_l, Zmin, Zmax, Rmin, Rmax,
     Kmax, Lmax, Nmax, inpath, map_roots_LM, map_Redges, outpath, sbt_coef_fname,
-    isw_lm_fname, Rmin_isw=None, Rmax_isw=None):
+    isw_lm_fname, Zmin_isw=None, Zmax_isw=None):
     """ Writes a parameter file to be read by GenISW.
 
     Parameters
@@ -45,10 +45,10 @@ def write_paramfile(paramfname, Tcmb, h0, omega_m, omega_l, Zmin, Zmax, Rmin, Rm
         Filename containing SBT coefficients.
     isw_lm_fname : str
         Filename containing the ISW spherical harmonic coefficients.
-    Rmin_isw : float, optional
-        Sets the minimum distance for the ISW calculation.
-    Rmax_isw : float, optional
-        Sets the maximum distance for the ISW calculation.
+    Zmin_isw : float, optional
+        Sets the minimum redshift for the ISW calculation.
+    Zmax_isw : float, optional
+        Sets the maximum redshift for the ISW calculation.
     """
     subprocess.call('touch '+ inpath + paramfname,shell=True)
     paramfile = open(inpath + paramfname, 'w')
@@ -75,11 +75,11 @@ def write_paramfile(paramfname, Tcmb, h0, omega_m, omega_l, Zmin, Zmax, Rmin, Rm
     paramfile.write("sbt_coef_fname     " + sbt_coef_fname + " %\n")
     paramfile.write("isw_lm_fname       " + isw_lm_fname + " %\n")
     if Rmin_isw is not None:
-        paramfile.write("Rmin_isw           " + str(Rmin_isw) + " %\n")
+        paramfile.write("Zmin_isw           " + str(Zmin_isw) + " %\n")
     else:
-        paramfile.write("Rmin_isw           " + str(Rmin) + " %\n")
+        paramfile.write("Zmin_isw           " + str(Zmin) + " %\n")
     if Rmin_isw is not None:
-        paramfile.write("Rmax_isw           " + str(Rmax_isw) + " %\n")
+        paramfile.write("Zmax_isw           " + str(Zmax_isw) + " %\n")
     else:
-        paramfile.write("Rmax_isw           " + str(Rmax) + " %\n")
+        paramfile.write("Zmax_isw           " + str(Zmax) + " %\n")
     paramfile.close()
