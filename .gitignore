@@ -1,0 +1,10 @@
+*.DS_Store
+pyGenISW/*.pyc
+scripts/*.o
+src/*.o
+tests/*
+
+SBT2ISW
+SBT2ISW_MPI
+SBT2SBT
+SBT2SBT_MPI
