@@ -20,6 +20,12 @@ from .cosmology_linear_growth import get_theta_r_empirical
 from .cosmology_linear_growth import get_omega_m_z
 from .cosmology_linear_growth import get_fz
 
+from .spherical_bessel import get_jl
+from .spherical_bessel import get_qln
+from .spherical_bessel import get_kln
+from .spherical_bessel import get_lmax
+from .spherical_bessel import get_nmax
+
 from .util import integrate
 
 from .write import write_paramfile

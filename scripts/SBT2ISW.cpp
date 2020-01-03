@@ -80,11 +80,11 @@ int main(int argc, char** argv){
   extract_param(paramfile, whichparam, &Rmax_str, &Rmax_found);
   summarise_param(whichparam, Rmax_str, Rmax_found);
 
-  whichparam = "Zmin_isw";
+  whichparam = "Z_min_isw";
   extract_param(paramfile, whichparam, &Zmin_isw_str, &Zmin_isw_found);
   summarise_param(whichparam, Zmin_isw_str, Zmin_found);
 
-  whichparam = "Zmax_isw";
+  whichparam = "Z_max_isw";
   extract_param(paramfile, whichparam, &Zmax_isw_str, &Zmax_isw_found);
   summarise_param(whichparam, Zmax_isw_str, Zmax_isw_found);
 
@@ -99,8 +99,9 @@ int main(int argc, char** argv){
 
   // Resolution
 
-  string Kmax_str, Lmax_str, Nmax_str;
+  string Kmax_str, Lmax_str, Nmax_str, Lmax_isw_str, Nmax_isw_str;
   bool Kmax_found = false, Lmax_found = false, Nmax_found = false;
+  bool Lmax_isw_found = false, Nmax_isw_found = false;
 
   whichparam = "Kmax";
   extract_param(paramfile, whichparam, &Kmax_str, &Kmax_found);
@@ -114,11 +115,21 @@ int main(int argc, char** argv){
   extract_param(paramfile, whichparam, &Nmax_str, &Nmax_found);
   summarise_param(whichparam, Nmax_str, Nmax_found);
 
-  double Kmax, Lmax, Nmax;
+  whichparam = "L_max_isw";
+  extract_param(paramfile, whichparam, &Lmax_isw_str, &Lmax_isw_found);
+  summarise_param(whichparam, Lmax_isw_str, Lmax_isw_found);
+
+  whichparam = "N_max_isw";
+  extract_param(paramfile, whichparam, &Nmax_isw_str, &Nmax_isw_found);
+  summarise_param(whichparam, Nmax_isw_str, Nmax_isw_found);
+
+  double Kmax, Lmax, Nmax, Lmax_isw, Nmax_isw;
 
   Kmax = stod(Kmax_str);
   Lmax = stoi(Lmax_str);
   Nmax = stoi(Nmax_str);
+  Lmax_isw = stoi(Lmax_isw_str);
+  Nmax_isw = stoi(Nmax_isw_str);
 
   // Inputs
 
@@ -238,7 +249,7 @@ int main(int argc, char** argv){
         knl = get_knl(L[i], n, Rmax*Mpc/h0, qnl);
         Nnl = get_Nnl(L[i], n, Rmax*Mpc/h0, knl);
         isw_lm_val = 0.;
-        if(knl <= Kmax*h0/Mpc){
+        if(knl <= Kmax*h0/Mpc && L[i] <= Lmax_isw && n <= Nmax_isw){
           for(int j = 1; j < zz.size(); j++){
             r1 = rr[j-1]*Mpc/h0;
             r2 = rr[j]*Mpc/h0;

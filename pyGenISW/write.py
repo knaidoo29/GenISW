@@ -4,7 +4,7 @@ import subprocess
 
 def write_paramfile(paramfname, Tcmb, h0, omega_m, omega_l, Zmin, Zmax, Rmin, Rmax,
     Kmax, Lmax, Nmax, inpath, map_roots_LM, map_Redges, outpath, sbt_coef_fname,
-    isw_lm_fname, Zmin_isw=None, Zmax_isw=None):
+    isw_lm_fname, Zmin_isw=None, Zmax_isw=None, Lmax_isw=None, Nmax_isw=None):
     """ Writes a parameter file to be read by GenISW.
 
     Parameters
@@ -49,6 +49,10 @@ def write_paramfile(paramfname, Tcmb, h0, omega_m, omega_l, Zmin, Zmax, Rmin, Rm
         Sets the minimum redshift for the ISW calculation.
     Zmax_isw : float, optional
         Sets the maximum redshift for the ISW calculation.
+    Lmax_isw : float, optional
+        Maximum L mode used to calculate the ISW Alm.
+    Nmax_isw : float, optional
+        Maximum N used to calculate the ISW Almn.
     """
     subprocess.call('touch '+ inpath + paramfname,shell=True)
     paramfile = open(inpath + paramfname, 'w')
@@ -74,12 +78,20 @@ def write_paramfile(paramfname, Tcmb, h0, omega_m, omega_l, Zmin, Zmax, Rmin, Rm
     paramfile.write("outpath            " + outpath  + " %\n")
     paramfile.write("sbt_coef_fname     " + sbt_coef_fname + " %\n")
     paramfile.write("isw_lm_fname       " + isw_lm_fname + " %\n")
-    if Rmin_isw is not None:
-        paramfile.write("Zmin_isw           " + str(Zmin_isw) + " %\n")
+    if Zmin_isw is not None:
+        paramfile.write("Z_min_isw           " + str(Zmin_isw) + " %\n")
     else:
-        paramfile.write("Zmin_isw           " + str(Zmin) + " %\n")
-    if Rmin_isw is not None:
-        paramfile.write("Zmax_isw           " + str(Zmax_isw) + " %\n")
+        paramfile.write("Z_min_isw           " + str(Zmin) + " %\n")
+    if Zmax_isw is not None:
+        paramfile.write("Z_max_isw           " + str(Zmax_isw) + " %\n")
     else:
-        paramfile.write("Zmax_isw           " + str(Zmax) + " %\n")
+        paramfile.write("Z_max_isw           " + str(Zmax) + " %\n")
+    if Lmax_isw is not None:
+        paramfile.write("L_max_isw           " + str(Lmax_isw) + " %\n")
+    else:
+        paramfile.write("L_max_isw           " + str(Lmax) + " %\n")
+    if Nmax_isw is not None:
+        paramfile.write("N_max_isw           " + str(Nmax_isw) + " %\n")
+    else:
+        paramfile.write("N_max_isw           " + str(Nmax) + " %\n")
     paramfile.close()
